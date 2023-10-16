@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+    const loadImage = (url) => {
+  // возвращаем состояние промиса
+  return new Promise((resolve, reject) => {
+    const image = document.createElement('img');
+
+    // 2. после того как изображение из ссылки загрузится, сработает событие onload
+    image.onload = () => {
+      // если изображение загружено, записываем данные в состояние промиса
+      resolve({
+        img: image,
+        width: image.width,
+        height: image.height,
+      })
+    };
+
+    // 3. если произогла ошибка, в событие oneerror в reject передаём ошибку
+    image.onerror = (err) => {reject(err)};
+
+    image.src = url; // 1. в атрибут записываем ссылку
+  })
+};
+
+loadImage('https://assets.imgix.net/unsplash/bridge.jpg?q=100&w=300')
+  .then(() => console.log('image onload'))
+  .catch(() => console.log('a loading error has occurred'));
+</script>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <section id="main">
+    <div>
+      <p>Boom</p>
+    </div>
+    <div id="first">
+      <ul id="list">
+        <li class="item item__nav">
+          <p id="content" class="text">Boom</p>
+          <div>
+            <span>No boom</span>
+          </div>
+        </li>
+        <li class="item">
+          <label>
+            <p id="frost">Boom</p>
+          </label>
+        </li>
+      </ul>
+    </div>
+    <div id="second">
+      <ul>
+        <li class="item">
+          <div id="wrap">
+            <h2 class="title" id="forest">BOOM</h2>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+</body>
+<script>
+    'use strict'
+
+const nodeA = document.querySelector('#first');
+const nodeB = document.querySelector('#second');
+
+const findChildNodes = (node) => {
+  // проверка для рекурсии, если элемента нет, выходим
+  if (node == null) return;
+
+  console.log(`tag: ${node.localName}; id: ${node.id || '-'}; class: ${node.classList.value || '-'}`)
+
+  // используем цикл for of чтобы перебрать значения массива с потомками в
+  // children (коллекция детей, которые являются элементами)
+  for (let childNode of node.children) {
+    // если потомки есть, вызываем текующую функцию и передаём итерируемый элемент
+    findChildNodes(childNode);
+  }
+
+  return;
+}
+
+findChildNodes(nodeA);
+findChildNodes(nodeB);
+</script>
+</html>

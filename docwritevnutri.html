@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+    document.write(document.write(document.write(document.write(
+  document.write(document.write(document.write(document.write(
+    document.write(document.write(document.write(document.write(
+      document.write(document.write(document.write(document.write(
+        document.write(document.write(document.write(document.write(
+          document.write(document.write(document.write(document.write(
+            document.write(document.write(document.write(document.write(
+
+)))))))))))))))))))))))))))) // 28 вызовов
+// каждый из которых (кроме первого), вставляет undefined на страницу.
+// более правильным ответ считаю: количество вызовов document.write внутри document.write
+// ограниченно размером call stack, что означает более 10000 вызовов в Google Chrome
+</script>
+</html>

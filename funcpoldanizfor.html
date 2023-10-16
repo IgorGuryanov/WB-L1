@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100vh;
+      font-family: Helvetica, sans-serif;
+      background-color: #242525
+    }
+
+    #form {
+      margin: 0;
+      padding: 96px 64px 64px;
+      max-width: 450px;
+      background-color: #2550a5;
+      border-radius: 16px;
+      background-image: none;
+      background-size: cover;
+    }
+
+    .label {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+      font-size: 24px;
+      line-height: 36px;
+      color: #FFF;
+    }
+
+    .input {
+      margin: 8px 0 0;
+      padding: 16px 8px;
+      font-size: 14px;
+      line-height: 18px;
+      background-color: rgba(255, 255, 255, .5);
+      border: none;
+      border-radius: 6px;
+      transition: background-color, .2s;
+    }
+
+    .input:focus {
+      outline: none;
+      background-color: rgba(255, 255, 255, 1);
+    }
+
+    .btn {
+      margin: 24px 0 0;
+      padding: 16px 24px;
+      color: #fff;
+      font-size: 16px;
+      line-height: 24px;
+      background-color: #95355d;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color, .2s;
+    }
+
+    .btn:hover {
+      background-color: #7d294c;
+    }
+
+    .btn:disabled {
+      opacity: .3;
+    }
+  </style>
+</head>
+<body>
+  <form id="form">
+    <label class="label">
+      Как позвать енота?
+      <input class="input" type="text" minlength="2" required>
+      <button class="btn" type="submit" disabled="true">Попробовать</button>
+    </label>
+  </form>
+</body>
+<script>
+    'use strict'
+
+// создание класса формы
+class Form {
+  constructor(formSelector, inputSelector, btnSelector, handleSubmit) {
+    this._form = document.querySelector(formSelector);
+    this._input = this._form.querySelector(inputSelector);
+    this._btn = this._form.querySelector(btnSelector);
+    this._handleSubmit = handleSubmit;
+  }
+
+  // метод переключения состояния кнопки
+  _toggleBtn = (value) => {
+    this._btn.disabled = !value;
+  }
+
+  // метод проверки валидности формы
+  _checkInputValidity = () => {
+    // если форма не валидна, выключаем кнопку
+    this._toggleBtn(this._input.validity.valid)
+  }
+
+  // после отправки данных, чистим форму и выключаем кнопку
+  _resetForm = () => {
+    this._input.value = '';
+
+    this._toggleBtn(false);
+  };
+
+  // метод изменения фона
+  changeFormBg = (value) => {
+    value
+      ? this._form.style.backgroundImage = 'url(https://fanibani.ru/wp-content/uploads/2022/12/1647106050_2-kartinkin-net-p-kartinki-s-yenotami-2.jpg)'
+      : this._form.style.backgroundImage = 'none'
+
+  }
+
+  // установка слушателей
+  setEventListener = () => {
+    this._form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // если сработал сабмит, вызываем переданную инструкцию,
+      // передаем в него значение инпута, кнопку и метод переключения фона
+      this._handleSubmit(this._input.value, this._btn, this.changeFormBg);
+      this._resetForm();
+    })
+
+    // при каждом вводе данных, проверяем валидность инпута
+    this._input.addEventListener('input', () => {
+      this._checkInputValidity();
+
+      // выключаем фон, чтобы обновить его после успешного ответа
+      this.changeFormBg(false);
+    })
+  };
+}
+
+// создание инстанса класса, с селекторами и инструкцией
+const form = new Form('#form', '.input', '.btn',
+  (inputValue, btn, changeBg) => {
+    // если сработал submit, проверяем данные
+    if (callEnot(inputValue)) {
+      changeBg(true);
+      btn.textContent = 'Попробовать';
+    } else {
+      btn.textContent = 'не получилось..';
+      changeBg(false);
+    }
+  },
+)
+
+// метод зовущий капибар
+const callEnot = (value) => {
+  return (Math.floor(Math.random() * value.length) % 2 === 0) ? false : true;
+}
+
+// запуск метода устанавливащего обработчики
+form.setEventListener();
+</script>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+  <script type="module">
+    import MomentDate from "./vneshbibl.js";
+
+// создаём инстанс класса (модуля)
+const momentDate = new MomentDate();
+
+console.log(momentDate.getDate()); // 11.10.2023
+console.log(momentDate.getDate(17, 6, 2019)); // 17.06.2019
+
+console.log(momentDate.getShortDate()); // 11.10.23
+console.log(momentDate.getShortDate(8, 8, 2008)); // 08.08.08
+
+console.log(momentDate.getFullDate()); // October 11, 2023
+console.log(momentDate.getFullDate(28, 2, 1953)); // February 28, 1953
+
+console.log(momentDate.getQuarterYear()); // 3
+console.log(momentDate.getQuarterYear(4)); // 2
+
+console.log(momentDate.getDayOfYear()); // 248
+console.log(momentDate.getDayOfYear(19, 11, 1999)); // 323
+// високосный год
+console.log(momentDate.getDayOfYear(19, 11, 2000)); // 324
+  </script>
+</head>
+<body>
+
+</body>
+</html>

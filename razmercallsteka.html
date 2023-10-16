@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+<script>
+    // в примере привожу данные из Google Chrome
+
+// Стек вызовов или call stack — это список всех активных функций,
+// которые вызывались, до текущей точки выполнения.
+
+  // счётчик вызовов
+  let countA = 0;
+
+const funcA = () => {
+  countA++;
+
+  // рекурсивная функция
+  funcA();
+};
+
+// блок для отлова ошибки
+try {
+  funcA();
+} catch (e) {
+  console.log(countA); // 13936
+}
+
+
+let countB = 0;
+
+const funcB = () => {
+  // для теста добавляю несколько переменных
+  const exampleVariableA = countB + 1;
+  const exampleVariableB = countB + 2;
+  const exampleVariableC = countB + 3;
+
+  countB++;
+
+  funcB();
+};
+
+try {
+  funcB();
+} catch (e) {
+  console.log(countB); // 10452
+}
+</script>
+</html>
